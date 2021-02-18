@@ -72,6 +72,7 @@ def add_dsproject(struct: Structure, opts: ScaffoldOpts) -> ActionParams:
         },
         "environment.yml": (template("environment_yml"), NO_OVERWRITE),
         "Dockerfile": (template("Dockerfile"), NO_OVERWRITE),
+        "setup.cfg": (template("setup_cfg"), NO_OVERWRITE),
         "models": {".gitignore": gitignore_all},
         "notebooks": {"template.ipynb": (template("template_ipynb"), NO_OVERWRITE)},
         "references": {".gitignore": ("", NO_OVERWRITE)},

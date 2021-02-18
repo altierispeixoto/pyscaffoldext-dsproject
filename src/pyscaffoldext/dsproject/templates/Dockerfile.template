@@ -1,2 +1,8 @@
 # set base image (host OS)
 FROM python:3.8-slim
+
+ADD . /opt/${name}
+
+WORKDIR /opt/${name}
+
+RUN python setup.py install
