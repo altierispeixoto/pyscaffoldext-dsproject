@@ -1,0 +1,48 @@
+from prefect import Task, Flow
+
+class Extract(Task):
+    def run(self):
+        return 10
+
+class Transform(Task):
+    def run(self, x):
+        return x + 10
+
+class Load(Task):
+    def run(self, x):
+        print(x)
+
+class Pipeline:
+
+    @classmethod
+    def setup_extract(cls):
+        e = Extract()
+        return e
+
+    @classmethod
+    def setup_load(cls):
+        l = Load()
+        return l
+
+    @classmethod
+    def setup_transform(cls):
+        t = Transform()
+        return t
+
+    @classmethod
+    def make_flow(cls):
+        e = cls.setup_extract()
+        t = cls.setup_transform()
+        l = cls.setup_load()
+
+        flow = Flow("testing-example")
+        flow.add_edge(upstream_task=e, downstream_task=t, key="x")
+        flow.add_edge(upstream_task=t, downstream_task=l, key="x")
+        return flow
+
+    @classmethod
+    def run(cls):
+        flow = cls.make_flow()
+        flow.run()
+
+#Pipeline.run()

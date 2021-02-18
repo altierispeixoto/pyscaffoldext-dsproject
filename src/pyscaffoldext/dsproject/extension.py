@@ -6,14 +6,16 @@ from pyscaffold.extensions import Extension, include
 from pyscaffold.extensions.no_skeleton import NoSkeleton
 from pyscaffold.extensions.pre_commit import PreCommit
 from pyscaffold.identification import get_id
-from pyscaffold.operations import add_permissions, no_overwrite
+from pyscaffold.operations import add_permissions, no_overwrite, skip_on_update
 from pyscaffold.structure import ensure, merge
+from pyscaffold.templates import ScaffoldOpts, get_template, init
 
 from pyscaffoldext.markdown.extension import Markdown, replace_files
 
 from .templates import readme_md, template
 
 NO_OVERWRITE = no_overwrite()
+SKIP_ON_UPDATE = skip_on_update()
 
 
 class DSProject(Extension):
@@ -38,7 +40,7 @@ class DSProject(Extension):
             help=self.help_text,
             nargs=0,
             dest="extensions",
-            action=include(NoSkeleton(), PreCommit(), self),
+            action=include(PreCommit(), self),
         )
         return self
 
@@ -69,16 +71,27 @@ def add_dsproject(struct: Structure, opts: ScaffoldOpts) -> ActionParams:
             },
         },
         "environment.yml": (template("environment_yml"), NO_OVERWRITE),
+        "Dockerfile": (template("Dockerfile"), NO_OVERWRITE),
         "models": {".gitignore": gitignore_all},
         "notebooks": {"template.ipynb": (template("template_ipynb"), NO_OVERWRITE)},
         "references": {".gitignore": ("", NO_OVERWRITE)},
         "reports": {"figures": {".gitignore": ("", NO_OVERWRITE)}},
+        # Code
+        "src": {
+            opts["package"]: {
+                "pipeline.py": (template("pipeline"), SKIP_ON_UPDATE),
+            }
+        },
+        # Tests
+        "tests": {
+            "test_pipeline.py": (template("test_pipeline"), SKIP_ON_UPDATE),
+        },
         "scripts": {
             "train_model.py": (
                 template("train_model_py"),
                 add_permissions(stat.S_IXUSR, NO_OVERWRITE),
             )
-        },
+        }
     }
 
     return merge(struct, files), opts

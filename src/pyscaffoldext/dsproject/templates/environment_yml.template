@@ -11,6 +11,7 @@ dependencies:
   - numpy
   - scipy
   - pandas
+  - prefect
   - tqdm
   - click
   - ipython
@@ -22,7 +23,7 @@ dependencies:
   # - yellowbrick
   # ML, STATS & DEEP LEARNING
   # - statsmodels
-  # - scikit-learn
+   - scikit-learn
   # - sktime
   # - tslearn
   # - xgboost

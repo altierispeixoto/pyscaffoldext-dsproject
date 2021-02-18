@@ -1,0 +1,15 @@
+# https://docs.prefect.io/core/idioms/testing-flows.html
+
+from ${qual_pkg}.pipeline import  Pipeline
+
+__author__ = "Altieris Peixoto"
+__copyright__ = "Altieris Peixoto"
+__license__ = "MIT"
+
+
+class TestPipeline:
+
+    def test_pipeline(self):
+        flow = Pipeline.make_flow()
+        state = flow.run()
+        assert state.is_successful()
