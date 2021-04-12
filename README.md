@@ -36,6 +36,11 @@ In order to set up the necessary environment:
    conda activate pyscaffold
 ```
 
+Obs: To delete conda environment
+```bash
+  conda env remove -n pyscaffold
+```
+
 The final directory structure looks like:
 ```
 ├── AUTHORS.md              <- List of developers and maintainers.
