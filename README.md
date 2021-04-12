@@ -18,6 +18,24 @@ Also consider using [dvc] to version control and share your data within your tea
 Read [this blogpost] to learn how to work with JupyterLab notebooks efficiently by using a
 data science project structure like this.
 
+### Create and activate environment with the help of conda:
+
+In order to set up the necessary environment:
+
+1. Make sure you have a [conda] distribution installed. 
+
+2. Review and uncomment what you need in `environment.yml` and create an environment `pyscaffold` with the help of conda:
+
+```bash
+   conda env create -f environment.yml
+```
+
+3. Activate the new environment with:
+
+```bash
+   conda activate pyscaffold
+```
+
 The final directory structure looks like:
 ```
 ├── AUTHORS.md              <- List of developers and maintainers.
@@ -32,6 +50,7 @@ The final directory structure looks like:
 │   └── raw                 <- The original, immutable data dump.
 ├── docs                    <- Directory for Sphinx documentation in rst or md.
 ├── environment.yml         <- The conda environment file for reproducibility.
+├── Dockerfile              <- Docker image
 ├── models                  <- Trained and serialized models, model predictions,
 │                              or model summaries.
 ├── notebooks               <- Jupyter notebooks. Naming convention is a number (for
