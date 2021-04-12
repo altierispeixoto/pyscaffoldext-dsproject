@@ -76,6 +76,12 @@ See a demonstration of the initial project structure under [dsproject-demo] and 
 the documentation of [PyScaffold] for more information.
 
 
+### Local Install
+
+```bash
+ python setup.py bdist_wheel
+```
+
 ## Usage
 
 Just install this package with `pip install pyscaffoldext-dsproject`
